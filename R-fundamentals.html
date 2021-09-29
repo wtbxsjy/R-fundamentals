@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>R语言基础</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="任哲" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet/leaflet.js"></script>
+    <link href="libs/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="libs/proj4/proj4.min.js"></script>
+    <script src="libs/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="libs/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-binding/leaflet.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="zh-CN.css" type="text/css" />
+    <link rel="stylesheet" href="customize.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# R语言基础
+## 面向非程序员的R基础教程
+### 任哲
+### MSI, BGI-Shenzhen
+### 2021-07-06 </br> (最后更新: 2021-08-02 11:21:16)
+
+---
+
+
+
+class: inverse, center, middle
+
+# 正式开始之前
+
+---
+class: inverse, center, middle
+
+# 哲学三问
+
+--
+
+## 我是谁？
+
+--
+
+## 我从哪里来？
+
+--
+
+## 我要去哪里？
+
+---
+class: inverse, center, middle
+
+## 我的回答
+
+--
+
+## 我是谁
+
+--
+
+### “我”是/不是一个程序员
+
+--
+
+## 我从哪里来
+
+--
+
+### “我”已经可以/不可以熟练使用R/Excel/SPSS/...
+
+--
+
+## 我要去哪里
+
+--
+
+### “我”想了解R语言，想用R语言做更多...
+
+---
+class: inverse, center, middle
+
+# 出发！
+
+---
+class: center, middle
+
+# 在本教程中
+
+--
+
+## 你大概率**不**会用到笔记本电脑&lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"&gt;&lt;/path&gt;&lt;/svg&gt;
+
+--
+
+## 你大概率**不**需要记笔记&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z"&gt;&lt;/path&gt;&lt;/svg&gt;
+
+--
+&lt;!-- ## 你大概率**不**需要连接Internet&lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z"&gt;&lt;/path&gt;&lt;/svg&gt; --&gt;
+## 当然如果你用笔记本记笔记我是很高兴的
+
+
+---
+class: center, middle
+
+# 在本课程中你会了解到：
+
+--
+
+## R语言及R语言的应用领域
+
+--
+
+## Rstudio与Rmarkdown
+
+---
+class: center, middle
+
+## &lt;img src="./resources/Rlogo.svg" alt="R logo" width="10%" align="center"&gt; 关于R语言
+
+--
+
+**R**是一门用于统计计算和作图的语言，受S语言和Scheme语言影响发展而来。
+
+--
+
+**R**语言最初由新西兰奥克兰大学统计系的Robert Gentleman和Ross Ihaka合作编写。
+
+--
+
+**R**语言具有免费、开源及统计模块齐全的特征，已被国外大量学术和科研机构采用，其应用范围涵盖了诸多领域。
+
+--
+
+.footnote[
+.left[
+ * S语言是一门用于数据分析和图示的高层语言。基于S语言开发的商业软件Splus&lt;img src="./resources/spluslogo.png" alt="R logo" width="25px" align = "center"&gt;，在外国学术界应用很广。
+Scheme语言是LISP语言&lt;img src="./resources/lisp_log.png" alt="R logo" width="25px" align = "center"&gt;的一个方言(或说成变种)
+]]
+
+---
+class: center, middle
+
+## 在遇到R之前
+
+--
+
+## 你一定见过其他统计分析软件
+
+--
+
+&lt;img src="./resources/saslogo.png" alt="SAS logo" width="72px" align = "center"&gt; **SAS**: 速度快，有大量统计分析模块，可扩展性稍差，昂贵。
+
+--
+
+&lt;img src="./resources/spsslogo.png" alt="SPSS logo" width="50px" align = "center"&gt; **SPSS**: 复杂的用户图形界面，简单易学，但编程十分困难。
+
+--
+
+&lt;img src="./resources/spluslogo.png" alt="Splus logo" width="50px" align = "center"&gt; **Splus**: 运行S语言，具有复杂的界面，与R完全兼容，昂贵。
+
+--
+
+&lt;img src="./resources/Origin-logo.png" alt="Origin logo" width="50px" align = "center"&gt; **Origin**: 无需编程基础，图表样式丰富，但定制化分析较为困难。
+
+
+--
+
+&lt;img src="./resources/excel.png" alt="Excel logo" width="50px" align = "center"&gt; **Excel**: 微软出品，功能强大，图形化界面易上手，但学习曲线比较陡峭，昂贵。
+
+---
+class: center, middle
+
+# 为什么选择R？
+
+--
+
+### &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M488.6 250.2L392 214V105.5c0-15-9.3-28.4-23.4-33.7l-100-37.5c-8.1-3.1-17.1-3.1-25.3 0l-100 37.5c-14.1 5.3-23.4 18.7-23.4 33.7V214l-96.6 36.2C9.3 255.5 0 268.9 0 283.9V394c0 13.6 7.7 26.1 19.9 32.2l100 50c10.1 5.1 22.1 5.1 32.2 0l103.9-52 103.9 52c10.1 5.1 22.1 5.1 32.2 0l100-50c12.2-6.1 19.9-18.6 19.9-32.2V283.9c0-15-9.3-28.4-23.4-33.7zM358 214.8l-85 31.9v-68.2l85-37v73.3zM154 104.1l102-38.2 102 38.2v.6l-102 41.4-102-41.4v-.6zm84 291.1l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6zm240 112l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6z"&gt;&lt;/path&gt;&lt;/svg&gt; 广阔的应用领域
+
+--
+
+### &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M171.73,232.813A5.381,5.381,0,0,0,176.7,229.5,48.081,48.081,0,0,1,191.6,204.244c1.243-.828,1.657-2.484,1.657-4.141a4.22,4.22,0,0,0-2.071-3.312L74.429,128.473,148.958,85a9.941,9.941,0,0,0,4.968-8.281,9.108,9.108,0,0,0-4.968-8.281L126.6,55.6a9.748,9.748,0,0,0-9.523,0l-100.2,57.966a9.943,9.943,0,0,0-4.969,8.281V236.954a9.109,9.109,0,0,0,4.969,8.281L39.235,258.07a8.829,8.829,0,0,0,4.968,1.242,9.4,9.4,0,0,0,6.625-2.484,10.8,10.8,0,0,0,2.9-7.039V164.5L169.66,232.4A4.5,4.5,0,0,0,171.73,232.813ZM323.272,377.73a12.478,12.478,0,0,0-4.969,1.242l-74.528,43.062V287.882c0-2.9-2.9-5.8-6.211-4.555a53.036,53.036,0,0,1-28.984.414,4.86,4.86,0,0,0-6.21,4.555V421.619l-74.529-43.061a8.83,8.83,0,0,0-4.969-1.242,9.631,9.631,0,0,0-9.523,9.523v26.085a9.107,9.107,0,0,0,4.969,8.281l100.2,57.553A8.829,8.829,0,0,0,223.486,480a11.027,11.027,0,0,0,4.969-1.242l100.2-57.553a9.941,9.941,0,0,0,4.968-8.281V386.839C332.8,382.285,328.24,377.73,323.272,377.73ZM286.007,78a23,23,0,1,0-23-23A23,23,0,0,0,286.007,78Zm63.627-10.086a23,23,0,1,0,23,23A23,23,0,0,0,349.634,67.914ZM412.816,151.6a23,23,0,1,0-23-23A23,23,0,0,0,412.816,151.6Zm-63.182-9.2a23,23,0,1,0,23,23A23,23,0,0,0,349.634,142.4Zm-63.627,83.244a23,23,0,1,0-23-23A23,23,0,0,0,286.007,225.648Zm-62.074,36.358a23,23,0,1,0-23-23A23,23,0,0,0,223.933,262.006Zm188.883-82.358a23,23,0,1,0,23,23A23,23,0,0,0,412.816,179.648Zm0,72.272a23,23,0,1,0,23,23A23,23,0,0,0,412.816,251.92Z"&gt;&lt;/path&gt;&lt;/svg&gt; 丰富的资源（R包），良好的扩展性
+
+--
+
+### &lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M202.021 0C122.202 0 70.503 32.703 29.914 91.026c-7.363 10.58-5.093 25.086 5.178 32.874l43.138 32.709c10.373 7.865 25.132 6.026 33.253-4.148 25.049-31.381 43.63-49.449 82.757-49.449 30.764 0 68.816 19.799 68.816 49.631 0 22.552-18.617 34.134-48.993 51.164-35.423 19.86-82.299 44.576-82.299 106.405V320c0 13.255 10.745 24 24 24h72.471c13.255 0 24-10.745 24-24v-5.773c0-42.86 125.268-44.645 125.268-160.627C377.504 66.256 286.902 0 202.021 0zM192 373.459c-38.196 0-69.271 31.075-69.271 69.271 0 38.195 31.075 69.27 69.271 69.27s69.271-31.075 69.271-69.271-31.075-69.27-69.271-69.27z"&gt;&lt;/path&gt;&lt;/svg&gt; 完备的帮助系统，大量详尽的文档
+
+--
+
+### &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M608 32H32C14.33 32 0 46.33 0 64v384c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zM176 327.88V344c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-16.29c-11.29-.58-22.27-4.52-31.37-11.35-3.9-2.93-4.1-8.77-.57-12.14l11.75-11.21c2.77-2.64 6.89-2.76 10.13-.73 3.87 2.42 8.26 3.72 12.82 3.72h28.11c6.5 0 11.8-5.92 11.8-13.19 0-5.95-3.61-11.19-8.77-12.73l-45-13.5c-18.59-5.58-31.58-23.42-31.58-43.39 0-24.52 19.05-44.44 42.67-45.07V152c0-4.42 3.58-8 8-8h16c4.42 0 8 3.58 8 8v16.29c11.29.58 22.27 4.51 31.37 11.35 3.9 2.93 4.1 8.77.57 12.14l-11.75 11.21c-2.77 2.64-6.89 2.76-10.13.73-3.87-2.43-8.26-3.72-12.82-3.72h-28.11c-6.5 0-11.8 5.92-11.8 13.19 0 5.95 3.61 11.19 8.77 12.73l45 13.5c18.59 5.58 31.58 23.42 31.58 43.39 0 24.53-19.05 44.44-42.67 45.07zM416 312c0 4.42-3.58 8-8 8H296c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h112c4.42 0 8 3.58 8 8v16zm160 0c0 4.42-3.58 8-8 8h-80c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16zm0-96c0 4.42-3.58 8-8 8H296c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h272c4.42 0 8 3.58 8 8v16z"&gt;&lt;/path&gt;&lt;/svg&gt; 开源！GNU软件：大概率免费
+
+---
+class: center, middle
+# &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M488.6 250.2L392 214V105.5c0-15-9.3-28.4-23.4-33.7l-100-37.5c-8.1-3.1-17.1-3.1-25.3 0l-100 37.5c-14.1 5.3-23.4 18.7-23.4 33.7V214l-96.6 36.2C9.3 255.5 0 268.9 0 283.9V394c0 13.6 7.7 26.1 19.9 32.2l100 50c10.1 5.1 22.1 5.1 32.2 0l103.9-52 103.9 52c10.1 5.1 22.1 5.1 32.2 0l100-50c12.2-6.1 19.9-18.6 19.9-32.2V283.9c0-15-9.3-28.4-23.4-33.7zM358 214.8l-85 31.9v-68.2l85-37v73.3zM154 104.1l102-38.2 102 38.2v.6l-102 41.4-102-41.4v-.6zm84 291.1l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6zm240 112l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6z"&gt;&lt;/path&gt;&lt;/svg&gt; 广阔的应用领域
+
+.pull-left[
+ #### Statistical &amp; Data Science 统计和数据科学领域
+ #### IT Sector 信息技术领域
+ #### Finance 金融领域
+ #### E-commerce 电子商务领域
+ #### Social Media 社交媒体领域
+ #### Life Science and Healthcare 生命健康领域
+ #### Manufacturing 工业生产领域
+ #### ......
+]
+
+.pull-right[
+&lt;img src="./resources/Applications-of-R-1.jpg" alt="Applications" width="100%" align = "center"&gt;
+]
+
+---
+class: center, middle
+
+## Statistical &amp; Data Science 统计和数据科学领域
+
+&gt; "I keep saying that the sexy job in the next 10 years will be statisticians and, I’m not kidding."
+&gt; Chief Economist at Google says.
+
+### R首先是一种统计学研究工具
+### R也常被用来进行机器学习和人工智能相关研究
+
+#### 真实世界中应用R的科研机构
+#### Cornell University 康奈尔大学（全美Top20）使用R作为统计计算的首选语言
+#### UCLA 加利福尼亚大学洛杉矶分校（全美Top5）使用R作为统计计算的教学语言
+
+---
+class: center, middle
+## Statistical &amp; Data Science 统计和数据科学领域
+
+### Tidyverse ecosystem
+&lt;img src="./resources/4_tidyverse-packages.png" alt="Applications" width="50%" align = "center"&gt;
+
+---
+class: center, middle
+## Statistical &amp; Data Science 统计和数据科学领域
+
+### Tidymodels ecosystem
+&lt;img src="./resources/simpletidymodels.png" alt="Applications" width="50%" align = "center"&gt;
+
+---
+class: center, middle
+## IT Sector 信息技术领域
+
+.pull-left[
+&lt;img src="./resources/R-in-IT-sector.jpg" alt="Applications" width="100%" align = "center"&gt;
+]
+
+.pull-right[
+#### 真实世界中应用R的IT公司
+#### Microsoft 微软 
+##### 使用R作为Azure机器学习平台的统计引擎
+##### 开发了[R-open](https://mran.microsoft.com/open)作为高效数学计算的R发行版
+#### Google 谷歌 
+##### 使用R来改善搜索结果，提供个性化广告推荐
+]
+
+---
+class: center, middle
+## Finance 金融领域
+
+.pull-left[
+#### R为金融工作和计算提供了先进的统计学套件，包括自动回归，时间序列分析，股票市场模型，金融数据挖掘，量化分析，下游风险评估等等。 
+#### 真实世界中应用R的金融公司
+#### Lloyds of London 劳合社是全球最为知名的特殊保险与再保险市场
+#### Bajaj Allianz Insurance 巴贾杰安联保险公司
+]
+
+.pull-right[
+&lt;img src="./resources/R-in-finance.jpg" alt="Applications" width="100%" align = "center"&gt;
+]
+
+---
+class: center, middle
+## Finance 金融领域
+
+### 股票和量化分析
+
+&lt;img src="./resources/quantmod_tidyquant.jpg" alt="Applications" width="70%" align = "center"&gt;
+
+---
+class: center, middle
+## Life Science and Healthcare 生命健康领域
+
+.pull-left[
+&lt;img src="./resources/R-in-healthcare-circle.jpg" alt="Applications" width="100%" align = "center"&gt;
+]
+
+.pull-right[
+#### R在药物发现，生物信息学，流行病学和公共卫生领域都有着大量应用
+#### 真实世界中应用R的生物制药公司
+#### Merck: 默克集团
+#### 使用R进行临床试验设计评估和药物设计
+]
+---
+class: center, middle
+## Life Science and Healthcare 生命健康领域
+
+### Covid-19 Map by Johns Hopkins
+
+&lt;img src="./resources/ncovid19-john.jpg" alt="Applications" width="80%" align = "center"&gt;
+
+
+---
+class: center, middle
+## Life Science and Healthcare 生命健康领域
+
+### Covid-19 Map by YuLab-SUM using R [nCov2019](https://github.com/YuLab-SMU/nCov2019)
+
+&lt;img src="./resources/ncovid19_map.jpg" alt="Applications" width="50%" align = "center"&gt;
+
+---
+class: center, middle
+
+## 说得这么好，那么哪里可以找到这些R包呢？
+
+&lt;img src="./resources/wheretobuy.jpg" alt="Applications" width="50%" align = "center"&gt;
+
+---
+class: center, middle
+## &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M171.73,232.813A5.381,5.381,0,0,0,176.7,229.5,48.081,48.081,0,0,1,191.6,204.244c1.243-.828,1.657-2.484,1.657-4.141a4.22,4.22,0,0,0-2.071-3.312L74.429,128.473,148.958,85a9.941,9.941,0,0,0,4.968-8.281,9.108,9.108,0,0,0-4.968-8.281L126.6,55.6a9.748,9.748,0,0,0-9.523,0l-100.2,57.966a9.943,9.943,0,0,0-4.969,8.281V236.954a9.109,9.109,0,0,0,4.969,8.281L39.235,258.07a8.829,8.829,0,0,0,4.968,1.242,9.4,9.4,0,0,0,6.625-2.484,10.8,10.8,0,0,0,2.9-7.039V164.5L169.66,232.4A4.5,4.5,0,0,0,171.73,232.813ZM323.272,377.73a12.478,12.478,0,0,0-4.969,1.242l-74.528,43.062V287.882c0-2.9-2.9-5.8-6.211-4.555a53.036,53.036,0,0,1-28.984.414,4.86,4.86,0,0,0-6.21,4.555V421.619l-74.529-43.061a8.83,8.83,0,0,0-4.969-1.242,9.631,9.631,0,0,0-9.523,9.523v26.085a9.107,9.107,0,0,0,4.969,8.281l100.2,57.553A8.829,8.829,0,0,0,223.486,480a11.027,11.027,0,0,0,4.969-1.242l100.2-57.553a9.941,9.941,0,0,0,4.968-8.281V386.839C332.8,382.285,328.24,377.73,323.272,377.73ZM286.007,78a23,23,0,1,0-23-23A23,23,0,0,0,286.007,78Zm63.627-10.086a23,23,0,1,0,23,23A23,23,0,0,0,349.634,67.914ZM412.816,151.6a23,23,0,1,0-23-23A23,23,0,0,0,412.816,151.6Zm-63.182-9.2a23,23,0,1,0,23,23A23,23,0,0,0,349.634,142.4Zm-63.627,83.244a23,23,0,1,0-23-23A23,23,0,0,0,286.007,225.648Zm-62.074,36.358a23,23,0,1,0-23-23A23,23,0,0,0,223.933,262.006Zm188.883-82.358a23,23,0,1,0,23,23A23,23,0,0,0,412.816,179.648Zm0,72.272a23,23,0,1,0,23,23A23,23,0,0,0,412.816,251.92Z"&gt;&lt;/path&gt;&lt;/svg&gt; 丰富的资源（R包），良好的扩展性
+
+--
+
+### CRAN &lt;img src="./resources/Rlogo.svg" alt="Applications" height="72px" align = "center"&gt; [https://cran.r-project.org/](https://cran.r-project.org/)
+
+--
+
+### BioConductor &lt;img src="./resources/bioc.png" alt="Applications" height="72px" align = "center"&gt; [https://www.bioconductor.org/](https://www.bioconductor.org/)
+
+
+--
+
+### R-OpenSci &lt;img src="./resources/ropen.png" alt="Applications" height="72px" align = "center"&gt; [https://ropensci.org/](https://ropensci.org/)
+
+--
+
+### 当然还有大量的未发表的R包隐藏在全球最大的同性交友网站Github &lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"&gt;&lt;/path&gt;&lt;/svg&gt;  [https://github.com/](https://github.com/)
+
+
+---
+class: center, middle
+## &lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M202.021 0C122.202 0 70.503 32.703 29.914 91.026c-7.363 10.58-5.093 25.086 5.178 32.874l43.138 32.709c10.373 7.865 25.132 6.026 33.253-4.148 25.049-31.381 43.63-49.449 82.757-49.449 30.764 0 68.816 19.799 68.816 49.631 0 22.552-18.617 34.134-48.993 51.164-35.423 19.86-82.299 44.576-82.299 106.405V320c0 13.255 10.745 24 24 24h72.471c13.255 0 24-10.745 24-24v-5.773c0-42.86 125.268-44.645 125.268-160.627C377.504 66.256 286.902 0 202.021 0zM192 373.459c-38.196 0-69.271 31.075-69.271 69.271 0 38.195 31.075 69.27 69.271 69.27s69.271-31.075 69.271-69.271-31.075-69.27-69.271-69.27z"&gt;&lt;/path&gt;&lt;/svg&gt; 完备的帮助系统，大量详尽的文档
+
+--
+
+### CRAN task views 如何利用CRAN的R包来解决真实世界的问题
+### [https://cran.r-project.org/web/views/](https://cran.r-project.org/web/views/)
+
+--
+
+### Bioconductor course 公开的R教程、视频资料
+### [https://www.bioconductor.org/help/course-materials/](https://www.bioconductor.org/help/course-materials/)
+
+--
+
+### The R Journal 关于R和R包的在线杂志
+### [https://journal.r-project.org/](https://journal.r-project.org/)
+
+---
+class: center, middle
+## &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M608 32H32C14.33 32 0 46.33 0 64v384c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zM176 327.88V344c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-16.29c-11.29-.58-22.27-4.52-31.37-11.35-3.9-2.93-4.1-8.77-.57-12.14l11.75-11.21c2.77-2.64 6.89-2.76 10.13-.73 3.87 2.42 8.26 3.72 12.82 3.72h28.11c6.5 0 11.8-5.92 11.8-13.19 0-5.95-3.61-11.19-8.77-12.73l-45-13.5c-18.59-5.58-31.58-23.42-31.58-43.39 0-24.52 19.05-44.44 42.67-45.07V152c0-4.42 3.58-8 8-8h16c4.42 0 8 3.58 8 8v16.29c11.29.58 22.27 4.51 31.37 11.35 3.9 2.93 4.1 8.77.57 12.14l-11.75 11.21c-2.77 2.64-6.89 2.76-10.13.73-3.87-2.43-8.26-3.72-12.82-3.72h-28.11c-6.5 0-11.8 5.92-11.8 13.19 0 5.95 3.61 11.19 8.77 12.73l45 13.5c18.59 5.58 31.58 23.42 31.58 43.39 0 24.53-19.05 44.44-42.67 45.07zM416 312c0 4.42-3.58 8-8 8H296c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h112c4.42 0 8 3.58 8 8v16zm160 0c0 4.42-3.58 8-8 8h-80c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16zm0-96c0 4.42-3.58 8-8 8H296c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h272c4.42 0 8 3.58 8 8v16z"&gt;&lt;/path&gt;&lt;/svg&gt; 开源！免费！
+
+--
+
+&lt;img src="./resources/freeofcharge.jpg" alt="Applications" width="60%" align = "center"&gt;
+
+---
+class: center, middle
+## 接下来
+
+--
+
+## 别担心，还没到开始写代码
+
+--
+
+## 想要正常使用R，让我们先把R部署到你的电脑上
+
+---
+class: center, top
+
+
+# 把大象放进冰箱里需要几步？
+
+--
+
+&lt;img src="./resources/elephent.jpg" alt="elephant" width="100%" align = "center"&gt;
+
+---
+background-image: url(./resources/cran.png)
+background-position: center
+background-size: contain
+class: center, right
+
+# 如何安装 R
+
+--
+
+### 打开R主页[https://cran.r-project.org/](https://cran.r-project.org/)
+
+--
+
+### 点击&lt;u&gt;Download for Windows&lt;/u&gt;进入R for Windows页面
+
+--
+
+### 点击&lt;u&gt;install R for the first time&lt;/u&gt;进入下载页面
+
+--
+
+### 点击&lt;u&gt;Download R 4.1.0 for Windows&lt;/u&gt;下载安装包
+
+--
+
+### 安装
+
+---
+class: center, middle
+
+# 这就够了？
+
+--
+
+# 还不够！
+
+--
+
+# 让我们先来聊聊这个安装包的名字:
+
+--
+
+# “R 4.1.0”
+
+---
+class: center, middle
+
+# 软件的持续开发与部署
+
+--
+
+&lt;img src="./resources/软件的可持续开发.png" alt="elephant" width="50%" align = "center"&gt;
+
+--
+
+### 软件的持续开发意味着多次发布
+### 多次发布之间需要有版本号进行区别
+### 但是仅仅区分版本号还不够，如何快速分辨软件的依赖关系呢？
+
+---
+class: center, middle
+# 语义化的版本控制
+
+--
+
+&lt;img src="./resources/语义化版本控制1.png" alt="elephant" width="40%" align = "center"&gt;
+
+--
+
+假设有个名为“救火车”的软件，它依赖于另一个名为“梯子”并已经有使用语义化版本控制的软件。当救火车创建时，梯子的版本号为 3.1.0。因为救火车使用了一些版本 3.1.0 所新增的功能，你可以放心地指定依赖于梯子的版本号大于等于 3.1.0 但小于 4.0.0。这样，当梯子版本 3.1.1 和 3.2.0 发布时，你可以将直接它们纳入你的包管理系统，因为它们能与原有依赖的软件兼容。
+
+---
+class: center, middle
+
+## 再回来看“4.1.0”
+
+### 4: 代表重大版本更新
+### 1: 代表小版本更新
+### 0: 代表错误修复
+
+---
+class: center, middle
+
+### 除了版本号之外，每个R发布的版本都还会有一个别称
+### 所有的版本别名都来自美国漫画连载《Peanuts》的系列名字
+&lt;img src="./resources/cb_peanuts.jpg" alt="peanuts" height="72px" align = "center"&gt; &lt;img src="./resources/snoopy-peanuts.png" alt="peanuts" height="72px" align = "center"&gt; 
+### 下面是最近的几个R发行版的名字，感兴趣可以自行检索
+
+ * **4.1.0** "Camp Pontanezen" (original strip: 1986-02-12) (R version release data: 2021-05-18)
+ * **4.0.5** "Shake and Throw" (original strip: 1978-07-30) (R version release date: 2021-03-31)
+ * **4.0.4** "Lost Library Book" (original strip: 1959-03-02) (R version release date: 2021-02-15)
+ * **4.0.3** "Bunny-Wunnies Freak Out" (original strip: 1972-10-23) (R version release date: 2020-10-10)
+ * **4.0.2** "Taking Off Again" (original strip: 1962-04-14) (R version release date: 2020-06-22)
+ * **4.0.1** "See Things Now" (original strip: 1962-02-06) (R version release date: 2020-06-06)
+ * **4.0.0** "Arbor Day" (original strip: 1970-04-24) (R version release date: 2020-04-24)   
+
+---
+class: center, middle
+## 在安装R时候的常见问题
+
+--
+### 我安装的R是3.5.3，那么在这个环境下开发的工具，能用在R 4.1.0吗？
+
+--
+### 我安装的R是4.1.0，那么在这个环境下开发的工具，能用在R 3.5.3吗？
+
+--
+### 我有必要更新到最新的R 4.1.0吗？
+
+---
+class: center, middle
+
+## 好了好了，我明白了版本号了，也装了合适的R了，该开始用R了吧？
+
+--
+
+## One more thing
+
+--
+
+### 安装Rtools
+### [https://cran.r-project.org/bin/windows/Rtools/history.html](https://cran.r-project.org/bin/windows/Rtools/history.html)
+
+---
+class: center, middle
+## Rtools 是什么，为什么还要装Rtools？
+
+### 简单来讲，Rtools是R实现跨平台和提高兼容性的必备工具
+&lt;img src="./resources/Rtools.png" alt="elephant" width="50%" align = "center"&gt;
+
+### 它也可以让我们马上就要介绍的Rstudio使用得更顺畅
+### 根据自己的R版本选择合适的Rtools安装即可
+
+---
+class: center, middle
+
+## &lt;img src="./resources/Rstudio_logo.svg" alt="R logo" width="25%" align="center"&gt; 关于Rstudio
+
+---
+class: center, middle
+
+## 首先来看R的图形界面
+
+&lt;img src="./resources/Rgui.png" alt="elephant" width="80%" align = "center"&gt;
+
+---
+class: center, middle
+
+## 再来看看Rstudio
+
+&lt;img src="./resources/Rstudio_ss.png" alt="elephant" width="80%" align = "center"&gt;
+
+---
+class: center, middle
+
+## 看起来好看多了，对吗
+
+--
+
+## 但我们并不只是奔着好看去的
+
+---
+class: center, middle
+
+## Rstudio是R的集成开发环境
+##（improved developer productivity, IDE）
+
+### 它的优势包括但不限于：
+
+### R的语法高亮和代码整理
+
+### 代码的自动补齐（神奇的Tab键）
+
+### 调用、查看函数库
+
+### 编译代码，打包工具
+
+### 交互式地展示代码执行结果，修改结果
+
+---
+class: center, middle
+
+### 好了好了，知道是个好东西了，让我们赶紧来开始用Rstudio吧
+
+&lt;img src="./resources/takemymoney.jpg" alt="takemymoney" width="80%" align = "center"&gt;
+
+---
+class: center, middle
+
+### 首先，Rstudio可以用来编写可执行的R代码
+
+--
+
+
+```r
+# 一个无聊的回归模型
+fit = lm(dist ~ 1 + speed, data = cars)
+coef(summary(fit))
+```
+
+```
+#               Estimate Std. Error   t value     Pr(&gt;|t|)
+# (Intercept) -17.579095  6.7584402 -2.601058 1.231882e-02
+# speed         3.932409  0.4155128  9.463990 1.489836e-12
+```
+
+```r
+dojutsu = c('地爆天星', '天照', '加具土命', '神威', '須佐能乎', '無限月読')
+grep('天', dojutsu, value = TRUE)
+```
+
+```
+# [1] "地爆天星" "天照"
+```
+
+--
+
+### 但是这并不是我们今天的主要内容
+
+---
+class: center, middle
+
+### 其次，还可以画图
+
+--
+
+
+```r
+library(tidyverse)
+data(cars)
+cars %&gt;% ggplot(aes(x = speed, y = dist)) + 
+  geom_point() + 
+  geom_line()
+```
+
+![](R-fundamentals_files/figure-html/unnamed-chunk-2-1.svg)&lt;!-- --&gt;
+
+---
+class: center, middle
+### 还可以画地图
+
+
+```r
+library(leaflet)
+leaflet() %&gt;% addTiles() %&gt;% setView(-93.65, 42.0285, zoom = 17)
+```
+
+<div id="htmlwidget-cbe46cffcfe0f125c07f" style="width:100%;height:432px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cbe46cffcfe0f125c07f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[42.0285,-93.65],17,[]]},"evals":[],"jsHooks":[]}</script>
+
+---
+class: center, middle
+### 还可以画表格
+
+
+```r
+DT::datatable(
+  head(iris, 4),
+  fillContainer = FALSE, options = list(pageLength = 8)
+)
+```
+
+<div id="htmlwidget-87dbddcca668b63eadf0" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-87dbddcca668b63eadf0">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4"],[5.1,4.9,4.7,4.6],[3.5,3,3.2,3.1],[1.4,1.4,1.3,1.5],[0.2,0.2,0.2,0.2],["setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+--
+
+### 但是这都不是我们今天的主要内容
+
+---
+class: center, middle
+
+### 有一件事，你仅能在Rstudio上完美地实现，它就是
+
+--
+
+### Rmarkdown &lt;img src="./resources/Rmarkdown_logo.png" alt="Rmarkdown" height="60px" align = "center"&gt;
+
+--
+
+&lt;img src="./resources/markdown-ecosystem.png" alt="Rmarkdown ecosystem" width="35%" align = "center"&gt;
+
+---
+class: center, middle
+
+### Rmarkdown顾名思义，就是R语言中的Markdown，那么什么是 Markdown?
+
+--
+
+&gt; Markdown 是一种轻量级标记语言，创始人为 John Gruber。它允许人们「使用易读易写的纯文本格式编写文档，然后转换成有效的 XHTML（或者 HTML）文档」。
+&gt; from 维基百科
+
+---
+class: center, middle
+
+### 说起编写文档，我用 Word 也可以实现同样的效果，为什么要使用 Markdown 呢？
+
+&lt;img src="./resources/Word.png" alt="Rmarkdown ecosystem" width="35%" align = "center"&gt;
+
+--
+
+#### 你一定经历过使用word排版的痛苦，比如毕业论文。
+#### 也一定经历过当你把Word编写好的内容粘贴到网页上，出现格式错乱的时候。
+#### 如果用Markdown，一切都会不一样
+
+&gt; Markdown 的本质是让我们回归到内容本身，注重文章本身的结构，而不是样式
+
+---
+class: center, middle
+
+### 今天这里不会讲Markdown的语法
+### 这里推荐3款兼容Markdown的文档编辑软件，大家上手之后一定会爱上Markdown
+
+--
+
+### Typora &lt;img src="./resources/Typora.png" alt="Rmarkdown ecosystem" height="72px" align = "center"&gt;
+
+--
+
+### 语雀 &lt;img src="./resources/语雀.png" alt="Rmarkdown ecosystem" height="72px" align = "center"&gt;
+
+--
+
+### Notion &lt;img src="./resources/notion.png" alt="Rmarkdown ecosystem" height="72px" align = "center"&gt;
+
+---
+class: center, middle
+
+### 突然想起我们这是一场关于R的教程
+
+&lt;img src="./resources/wait_comeback.jpg" alt="come back" weight="30%" align = "center"&gt;
+
+### 让我们来看看如何用R来编写Markdown文档
+
+---
+class: center, middle
+
+### 从菜单 `File -&gt; New File -&gt; R Markdown -&gt; Documente` 填写作者和标题，创建一个新文档；
+
+--
+
+&lt;img src="./resources/test_rmd_config.png" alt="come back" weight="100%" align = "center"&gt;
+
+---
+class: center, middle
+
+### 点击 `Knit` 按钮编译文档；
+
+--
+
+### 恭喜你成功地制作了一份即时演算的Markdown文档！
+
+--
+
+&lt;img src="./resources/test_rmd.png" alt="Rmarkdown ecosystem" width="60%" align = "center"&gt;
+
+&gt; 当然它还很丑，如何美化它，那就是另一个的故事了
+
+---
+class: center, middle
+
+## 动态可重复文档解决方案
+
+在数据分析过程中通常的处理流程如下：
+
+--
+
+&gt; **需求定义-&gt;数据收集-&gt;数据转化-&gt;数据分析-&gt;数据可视化**
+
+--
+
+而在需求快速变化的项目初期，为了快速确定需求，如何敏捷打造最小可用原型显然比项目工程化来得更有意义。
+
+所以在现实中，这时候流程常常就会缩短成：
+
+--
+
+&gt; **需求定义-&gt;数据整理-&gt;数据可视化**
+
+--
+
+数据整理：R
+
+--
+
+数据可视化：Rmarkdown
+
+---
+class: center, middle
+
+# 再进一步
+
+--
+
+## 如果这个报告的输入也可以改变，所有的结果都适时地根据输入来显示
+
+--
+
+## 你是在说Shiny？
+
+---
+class: center, middle
+
+## Shiny App
+
+&lt;img src="./resources/shinyarchitecture.png" alt="Rmarkdown ecosystem" width="70%" align = "center"&gt;
+
+---
+class: center, middle
+
+## 依赖成熟的框架，可以快速地构建动态shinyapp
+
+.pull-left[
+### flexdashboard
+&lt;img src="./resources/shinyflexdashboard.png" alt="Rmarkdown ecosystem" width="100%" align = "center"&gt;
+]
+
+.pull-right[
+### shinydashboard
+&lt;img src="./resources/shinydashboard.png" alt="Rmarkdown ecosystem" width="100%" align = "center"&gt;
+]
+---
+class: center, middle
+
+## 这就是我们在国产质谱仪软件开发中完成的工作
+
+--
+
+## 敬请期待后续关于maldiSNP和Nutyper的内容！
+
+&lt;img src="./resources/maldiSNP_sticker.png" alt="Rmarkdown ecosystem" width="30%" align = "center"&gt;
+
+---
+class: center, middle
+
+# 最后，蟹蟹
+
+本幻灯片由 R 包 [**xaringan**](https://github.com/yihui/xaringan) 生成；
+
+使得这一切变得可能的是 [remark.js](https://remarkjs.com)、[**knitr**](https://yihui.org/knitr)、以及 [R Markdown](https://rmarkdown.rstudio.com)。
+
+主要参考资料：
+
+
+ * https://techvidvan.com/tutorials/r-applications/
+ * https://bookdown.org/yihui/rmarkdown/
+ * https://bookdown.org/yihui/rmarkdown-cookbook/
+ * https://www.coursera.org/learn/r-programming
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

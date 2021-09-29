@@ -1,0 +1,11 @@
+.hljs-github {
+    background-image: url(./resources/light_bg.jpg); /* light bg for normal slides */
+    background-size: cover;
+  }
+
+.inverse {
+    background-image: url(./resources/dawn.jpg); /* dark bg for normal slides */
+    background-size: cover;
+  }
+
+.remark-slide-content { font-size: 24px; }

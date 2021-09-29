@@ -1,0 +1,9 @@
+[0706/192148:ERROR:browser_gpu_channel_host_factory.cc(119)] Failed to launch GPU process.
+[0719/174703:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0719/183207:ERROR:sandbox_policy_base.cc(379)] Failed to add sandbox rule. error = 2, subsystem = 0, semantics = 0, pattern = 'D:\Users\wtbxs\Documents\work\code\R-fundamentals\R-fundamentals\resources\debug.log'
+[0719/183207:ERROR:child_process_launcher.cc(528)] Failed to launch child process
+[0719/183207:ERROR:browser_gpu_channel_host_factory.cc(119)] Failed to launch GPU process.
+[0721/184254:ERROR:shell.cc(348)] Cannot client process matching existing identity:Name: exe:content_gpu User: 505C0EE9-3013-43C0-82B0-A84F50CF8D84 Instance: content_gpu
+[0721/184254:ERROR:sandbox_policy_base.cc(379)] Failed to add sandbox rule. error = 2, subsystem = 0, semantics = 0, pattern = 'D:\Users\wtbxs\Documents\work\code\R-fundamentals\R-fundamentals\resources\debug.log'
+[0721/184254:ERROR:child_process_launcher.cc(528)] Failed to launch child process
+[0721/184254:ERROR:browser_gpu_channel_host_factory.cc(119)] Failed to launch GPU process.
